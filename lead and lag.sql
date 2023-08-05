@@ -87,4 +87,7 @@ SELECT
   LAG(sales_amount) OVER (ORDER BY order_Date)*100 as change_percentage
 FROM
   sales_demo;
+
+-- Step 5: Display the updated table
+SELECT * FROM sales_demo;
   
