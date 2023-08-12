@@ -1,3 +1,4 @@
+                                                      GROUP BY
 use saidata
 CREATE TABLE orders (
   order_id INT PRIMARY KEY,
@@ -21,38 +22,43 @@ VALUES
 SELECT product_id, SUM(quantity) AS total_quantity
 FROM orders
 GROUP BY product_id;
-
+-------------------------------------------------------------------------------------------------------------------------------------------
 2.Calculate the total revenue for each customer	
 
 SELECT customer_id, SUM(quantity * price) AS total_revenue
 FROM orders
 GROUP BY customer_id;
-
-3.Get the maximum quantity ordered in a single order for each product										
+-------------------------------------------------------------------------------------------------------------------------------------------
+3.Get the maximum quantity ordered in a single order for each product
+	
 SELECT product_id, MAX(quantity) AS max_quantity 
 FROM orders 
 GROUP BY product_id;
-
+------------------------------------------------------------------------------------------------------------------------------------------
 select * from orders
-
+-------------------------------------------------------------------------------------------------------------------------------------------
 4.Get the number of orders placed by each customer
+	
 SELECT customer_id, COUNT(order_id) AS order_count
 FROM orders
 GROUP BY customer_id;
-
-5.Calculate the total revenue for each day	
+--------------------------------------------------------------------------------------------------------------------------------------
+5.Calculate the total revenue for each day
+	
 SELECT DATE(order_date) AS order_day, SUM(price*quantity) AS total_revenue
 FROM orders
 GROUP BY DATE(order_date);	
 
 6.Calculate the total revenue for each product each day	
+	
 SELECT DATE(order_date) AS order_day, product_id, SUM(price*quantity) AS total_revenue
 FROM orders
 GROUP BY DATE(order_date), product_id;
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------
 partition
-1.Find the cumulative sum of quantity for each product, ordered by date.						
+1.Find the cumulative sum of quantity for each product, ordered by date.
+	
 SELECT 
     order_date,
     product_id,
@@ -62,8 +68,9 @@ FROM
     orders
 ORDER BY 
     product_id, order_date;
-    
-2.Calculate the average price for each customer_id, considering only the top 3 most expensive orders.	
+ =======================================================================================================================================   
+2.Calculate the average price for each customer_id, considering only the top 3 most expensive orders.
+	 
 SELECT
     customer_id,
     AVG(price) AS average_price
@@ -80,8 +87,9 @@ WHERE
 GROUP BY
     customer_id;
     
-    
+========================================================================================================================================    
 3.Find the difference in quantity for each product between consecutive orders.
+	
 SELECT
     order_id,
     product_id,
@@ -92,8 +100,9 @@ FROM
     orders
 ORDER BY
     product_id, order_id;
-    
-4.Determine the rank of each order for each customer based on the quantity, in descending order.						    
+=========================================================================================================================================    
+4.Determine the rank of each order for each customer based on the quantity, in descending order.
+	
 SELECT
     order_id,
     customer_id,
@@ -103,8 +112,9 @@ FROM
     orders
 ORDER BY
     customer_id, order_rank;
-    
+==========================================================================================================================================    
 5.Find the running total (cumulative sum) of the price for each customer, sorted by order_date.
+	
 SELECT
     order_date,
     customer_id,
